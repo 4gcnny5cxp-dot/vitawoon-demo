@@ -1,150 +1,113 @@
-export default function Woningen() {
-  const listings = [
-    // --- VitaWoon demo listings (eigen/test) ---
-    {
-      id: "vw-1",
+import { useRouter } from "next/router";
+
+export default function WoningDetail() {
+  const { id } = useRouter().query;
+  const key = String(id || "");
+
+  // Mini “database” in de detailpagina (demo)
+  const map: Record<string, any> = {
+    "vw-1": {
       title: "Licht appartement met lift",
       place: "Amsterdam",
       label: "Huur",
       price: "€ 1.450 p/m",
-      tags: ["Voorzieningen dichtbij", "Community", "Hulp organiseerbaar", "Zorg optioneel"],
-      source: "VitaWoon demo"
+      source: "VitaWoon demo",
+      text:
+        "Prettig wonen met lift en mogelijkheden voor ontmoeting. Hulp en ondersteuning zijn later te organiseren; zorg is optioneel."
     },
-    {
-      id: "vw-2",
+    "vw-2": {
       title: "Gelijkvloerse woning nabij winkels",
       place: "Utrecht",
       label: "Koop",
       price: "€ 425.000 k.k.",
-      tags: ["Gelijkvloers", "Voorzieningen dichtbij", "Welzijn", "Hulp organiseerbaar"],
-      source: "VitaWoon demo"
+      source: "VitaWoon demo",
+      text:
+        "Gelijkvloers en comfortabel, met voorzieningen dichtbij. Wonen en welzijn centraal, met opties voor later."
     },
-
-    // --- Voorbeelden AM / concepten / senior wonen (demo, externe bron) ---
-    {
-      id: "am-stadsveteraan",
+    "am-stadsveteraan": {
       title: "De Stadsveteraan 020 (geclusterd wonen / 55+ concept)",
       place: "Amsterdam",
       label: "Nieuwbouw / Concept",
       price: "n.v.t. (voorbeeld)",
-      tags: ["Community", "Samenredzaamheid", "Seniorenconcept"],
-      source: "AM / Woonzorg Nederland (voorbeeld)"
+      source: "AM / Woonzorg Nederland (voorbeeld)",
+      text:
+        "Voorbeeld van een geclusterde woonvorm voor senioren met nadruk op community en samenredzaamheid."
     },
-    {
-      id: "am-lets-live",
+    "am-lets-live": {
       title: "Let’s Live (woonconcept met optionele zorg/ondersteuning)",
       place: "Meerdere locaties (concept)",
       label: "Concept",
       price: "n.v.t. (voorbeeld)",
-      tags: ["Zelfstandig wonen", "Zorg optioneel", "Doelgroep senioren"],
-      source: "AM (voorbeeld)"
+      source: "AM (voorbeeld)",
+      text:
+        "Voorbeeldconcept gericht op zelfstandig wonen, met ondersteuning/zorg die later kan worden ingericht."
     },
-
-    // --- Voorbeelden Bouwinvest (demo, externe bron) ---
-    {
-      id: "bi-bospark",
+    "bi-bospark": {
       title: "Bospark – levensloopbestendige huurwoningen (senioren)",
       place: "Alphen aan den Rijn",
       label: "Nieuwbouw (huur)",
       price: "n.v.t. (voorbeeld)",
-      tags: ["Levensloopbestendig", "Ontmoeting", "Zorg/ondersteuning flexibel"],
-      source: "Bouwinvest (voorbeeld)"
+      source: "Bouwinvest (voorbeeld)",
+      text:
+        "Voorbeeld van een seniorencomplex waar wonen en ontmoeten centraal staan, met flexibele inzet van ondersteuning."
     },
-    {
-      id: "bi-grote-lijster",
+    "bi-grote-lijster": {
       title: "Grote Lijster – particulier woonzorgproject (42 woningen)",
       place: "Uithoorn",
       label: "Nieuwbouw",
       price: "n.v.t. (voorbeeld)",
-      tags: ["Woonzorg", "Zwaardere zorg mogelijk", "Langjarige verhuur"],
-      source: "Bouwinvest Senior Living Impact Fund (voorbeeld)"
+      source: "Bouwinvest Senior Living Impact Fund (voorbeeld)",
+      text:
+        "Voorbeeld van een woonzorgproject gericht op senioren met zwaardere zorgbehoefte (illustratief)."
     }
-  ];
+  };
+
+  const item = map[key] || {
+    title: "Woning (demo)",
+    place: "",
+    label: "",
+    price: "",
+    source: "Demo",
+    text: "Geen detailinformatie beschikbaar."
+  };
 
   return (
     <main style={{ padding: "40px", maxWidth: "980px", margin: "0 auto" }}>
-      <h1>Woningen</h1>
-      <p style={{ color: "#444", maxWidth: "820px" }}>
-        Eén overzicht (zoals Funda): huur, koop en nieuwbouw door elkaar. Wonen en welzijn centraal.
-        Hulp en zorg zijn optioneel en te organiseren wanneer dat later nodig is.
+      <div style={{ fontSize: 13, color: "#666" }}>{item.place}</div>
+      <h1 style={{ marginTop: 6 }}>{item.title}</h1>
+
+      <div style={{ display: "flex", gap: 18, flexWrap: "wrap", marginTop: 10, color: "#444" }}>
+        <div><strong>Type:</strong> {item.label}</div>
+        <div><strong>Prijs:</strong> {item.price}</div>
+        <div><strong>Bron:</strong> {item.source}</div>
+      </div>
+
+      <div style={{ marginTop: 18, border: "1px solid #eee", borderRadius: 16, padding: 16, background: "#fafafa" }}>
+        <strong>Beschrijving</strong>
+        <p style={{ marginTop: 8, lineHeight: 1.6 }}>{item.text}</p>
+      </div>
+
+      <h3 style={{ marginTop: 22 }}>Welzijn & community</h3>
+      <ul style={{ lineHeight: 1.7 }}>
+        <li>Ontmoeting en omkijken als onderdeel van prettig wonen</li>
+        <li>Voorzieningen in de buurt of goed te organiseren</li>
+        <li>Rust en overzicht voor naasten</li>
+      </ul>
+
+      <h3 style={{ marginTop: 22 }}>Hulp, ondersteuning en zorg (optioneel)</h3>
+      <p style={{ lineHeight: 1.6, color: "#444" }}>
+        VitaWoon zet wonen centraal. Hulp en zorg zijn beschikbaar en te organiseren wanneer dat later nodig is —
+        zonder dat dit nu een voorwaarde is.
       </p>
 
-      {/* Filters (demo, niet functioneel) */}
-      <div
-        style={{
-          marginTop: "18px",
-          display: "grid",
-          gap: "10px",
-          gridTemplateColumns: "1.3fr 1fr 1fr 1fr",
-          alignItems: "center"
-        }}
-      >
-        <input placeholder="Zoek op plaats of project…" style={{ padding: "10px 12px", borderRadius: 10, border: "1px solid #ddd" }} />
-        <select style={{ padding: "10px 12px", borderRadius: 10, border: "1px solid #ddd" }}>
-          <option>Alle types</option>
-          <option>Huur</option>
-          <option>Koop</option>
-          <option>Nieuwbouw</option>
-          <option>Concept</option>
-        </select>
-        <select style={{ padding: "10px 12px", borderRadius: 10, border: "1px solid #ddd" }}>
-          <option>Toegankelijkheid</option>
-          <option>Lift</option>
-          <option>Gelijkvloers</option>
-          <option>Drempelvrij</option>
-        </select>
-        <select style={{ padding: "10px 12px", borderRadius: 10, border: "1px solid #ddd" }}>
-          <option>Welzijn / community</option>
-          <option>Ontmoeting</option>
-          <option>Activiteiten</option>
-          <option>Omgeving/voorzieningen</option>
-        </select>
+      <div style={{ display: "flex", gap: 12, marginTop: 18, flexWrap: "wrap" }}>
+        <a href="/vitacheck" style={{ background: "#111", color: "#fff", padding: "10px 14px", borderRadius: 10, textDecoration: "none" }}>
+          Doe de VitaCheck
+        </a>
+        <a href="/woningen" style={{ border: "1px solid #ccc", padding: "10px 14px", borderRadius: 10, textDecoration: "none" }}>
+          Terug naar overzicht
+        </a>
       </div>
-
-      <div style={{ marginTop: 18, fontSize: 12, color: "#666" }}>
-        *Dit is demo-data. Voorbeelden van externe partijen zijn opgenomen als illustratie van type aanbod en positionering.
-      </div>
-
-      {/* Cards */}
-      <div style={{ display: "grid", gap: 14, marginTop: 22 }}>
-        {listings.map((x) => (
-          <a
-            key={x.id}
-            href={`/woningen/${encodeURIComponent(x.id)}`}
-            style={{
-              border: "1px solid #e6e6e6",
-              borderRadius: 16,
-              padding: 16,
-              textDecoration: "none",
-              color: "inherit"
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-              <div>
-                <div style={{ fontSize: 13, color: "#666" }}>{x.place}</div>
-                <div style={{ fontWeight: 600, marginTop: 4 }}>{x.title}</div>
-              </div>
-              <div style={{ textAlign: "right" }}>
-                <div style={{ fontSize: 12, color: "#666" }}>{x.label}</div>
-                <div style={{ fontWeight: 600 }}>{x.price}</div>
-              </div>
-            </div>
-
-            <div style={{ marginTop: 10, display: "flex", gap: 8, flexWrap: "wrap" }}>
-              {x.tags.map((t) => (
-                <span key={t} style={{ border: "1px solid #eee", padding: "4px 10px", borderRadius: 999, fontSize: 12 }}>
-                  {t}
-                </span>
-              ))}
-              <span style={{ marginLeft: "auto", fontSize: 12, color: "#666" }}>{x.source}</span>
-            </div>
-          </a>
-        ))}
-      </div>
-
-      <p style={{ marginTop: 24 }}>
-        <a href="/">← Terug naar VitaWoon</a>
-      </p>
     </main>
   );
 }
