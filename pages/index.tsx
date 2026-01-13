@@ -5,12 +5,13 @@ export default function Home() {
         <h1>VitaWoon</h1>
 
         <h2>
-          Ontdek woningen waar u nu prettig woont —<br />
-          met voorzieningen, hulp en zorg beschikbaar wanneer dat later nodig is.
+          Ontdek woningen waar u nu prettig woont.
+          <br />
+          Met voorzieningen, hulp en zorg beschikbaar wanneer dat later nodig is.
         </h2>
 
         <p className="muted">
-          Demo-omgeving om look & feel en functies te testen. Wonen en welzijn centraal.
+          Demo-omgeving om look &amp; feel en functies te testen. Wonen en welzijn centraal.
           Hulp en zorg zijn altijd optioneel.
         </p>
 
