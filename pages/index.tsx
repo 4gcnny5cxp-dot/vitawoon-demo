@@ -1,8 +1,13 @@
 export default function Home() {
   return (
-    <main style={{ padding: "40px", maxWidth: "900px", margin: "0 auto" }}>
-      <h1>VitaWoon</h1>
-
+    <main>
+      <div className="container">
+        <h1>VitaWoon</h1>
+        <p>Welkom bij VitaWoon</p>
+      </div>
+    </main>
+  );
+}      
       <h2>
         Ontdek woningen waar u nu prettig woont —<br />
         met voorzieningen, hulp en zorg beschikbaar wanneer dat later nodig is.
